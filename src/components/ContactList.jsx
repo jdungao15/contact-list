@@ -2,7 +2,7 @@ import { useState } from "react";
 import ContactRow from "./ContactRow";
 import { useEffect } from "react";
 
-const ContactList = () => {
+const ContactList = ({ setSelectedContactId }) => {
   const dummyContacts = [
     {
       id: 1,
@@ -26,7 +26,6 @@ const ContactList = () => {
           "https://fsa-jsonplaceholder-69b5c48f1259.herokuapp.com/users"
         );
         const contactData = await res.json();
-        console.log(contactData);
         setContact(contactData);
       } catch (err) {
         console.error(err);
@@ -48,8 +47,13 @@ const ContactList = () => {
             <td>Email</td>
             <td>Phone</td>
           </tr>
+
           {contacts.map((contact) => (
-            <ContactRow key={contact.id} contact={contact}></ContactRow>
+            <ContactRow
+              setSelectedContactId={setSelectedContactId}
+              key={contact.id}
+              contact={contact}
+            ></ContactRow>
           ))}
         </tbody>
       </table>
